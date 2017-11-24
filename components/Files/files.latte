@@ -1,0 +1,25 @@
+<h3>{$title}</h3>
+<div class="card-block p-0">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Název Souboru</th>
+                <th>Velikost</th>
+                <th>Stáhnout</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $files AS $hash => $file}
+                <tr>
+                    <td>{$file->getName()}</td>
+                    <td>{$file->getSize() ? ($file->getSize()|bytes) : '---'}</td>
+                    <td>
+                        <a class="btn btn-success btn-sm tw-ajax" href="{plink :FileManegement:FileManagement:download, $hash}" data-ajax="on"><i class="fa fa-download" title="Stáhnout"></i></a>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>

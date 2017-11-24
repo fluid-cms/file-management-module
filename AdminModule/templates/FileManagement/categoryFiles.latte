@@ -1,0 +1,122 @@
+{block content}
+    <h1 class="page-header">
+        {block title}Soubory v kategorii {$category->name}{/block}
+        <span class="button-area">
+            <div class="actions">
+                <span class="btn btn-success fileinput-button">
+                    <i class="fa fa-plus"></i> Přidat soubory ...
+                </span>
+                <button type="submit" class="btn btn-primary start" disabled>
+                    <i class="fa fa-upload"></i> Nahrát
+                </button>
+                <button type="reset" class="btn btn-warning cancel" disabled>
+                    <i class="fa fa-times-circle-o"></i> Zrušit vše
+                </button>
+                <a type="reset" class="btn btn-danger" n:href="category">
+                    <i class="fa fa-arrow-left"></i> Zpět
+                </a>
+            </div>
+        </span>
+    </h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+
+                    <form action="{plink upload! $category->id}">
+                        <div id="upload-zone"></div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-xs-12">
+                            <div class="row table table-striped" class="files" id="previews">
+                                <div id="template" class="file-row">
+                                    <div class="col-md-2">
+                                        <span class="preview"><img data-dz-thumbnail/></span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="name" data-dz-name></p>
+                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="size" data-dz-size></p>
+                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <button data-dz-remove class="btn btn-warning cancel">
+                                            <i class="fa fa-times-circle-o"></i> Zrušit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Soubory: </h3>
+                    <div class="card-block p-0" n:snippet="files">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        {control filesGrid}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        var previewNode = document.querySelector("#template");
+                        previewNode.id = "";
+                        var previewTemplate = previewNode.parentNode.innerHTML;
+                        previewNode.parentNode.removeChild(previewNode);
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var myDropzone = new Dropzone("div#upload-zone", {
+                                url: {plink upload! $category->id},
+                                maxFilesize: {$maxUploadSize},
+                                parallelUploads: 3,
+                                previewTemplate: previewTemplate,
+                                autoQueue: false,
+                                previewsContainer: "#previews",
+                                clickable: ".fileinput-button"
+                            });
+
+                            myDropzone.on("addedfile", function (file) {
+                                document.querySelector(".actions .start").disabled = false;
+                                document.querySelector(".actions .cancel").disabled = false;
+                            });
+
+                            document.querySelector(".actions .start").onclick = function () {
+                                myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+                                document.querySelector(".actions .start").disabled = true;
+                                document.querySelector(".actions .cancel").disabled = false;
+                            };
+
+                            document.querySelector(".actions .cancel").onclick = function () {
+                                myDropzone.removeAllFiles(true);
+                                document.querySelector(".actions .start").disabled = true;
+                                document.querySelector(".actions .cancel").disabled = true;
+                            };
+
+                            myDropzone.on("complete", function (file) {
+                                myDropzone.removeFile(file);
+                            });
+
+                            myDropzone.on("queuecomplete", function (file) {
+                                document.querySelector(".actions .start").disabled = true;
+                                document.querySelector(".actions .cancel").disabled = true;
+                                $.nette.ajax({
+                                    'type': 'get',
+                                    'url': {plink refreshfiles!}
+                                });
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

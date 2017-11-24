@@ -1,0 +1,56 @@
+parameters:
+
+	backend:
+		auth:
+			fileManagement: 'Správa souborů'
+		menu:
+			Správa souborů:
+				order: 32
+				icon: 'file-o'
+				auth: '%backend.auth.fileManagement%'
+				link: ':Admin:FileManagement:category'
+				selected:
+					- ':Admin:FileManagement:.*'
+
+	module:
+		fileManagement:
+			directory:
+			categoryIdPrefix: category-
+
+	controls:
+		files:
+			class: Grapesc\GrapeFluid\FileManagementModule\Control\Files\FilesControlFactory
+			desc: 'Slouží pro výpis souborů'
+			params:
+				category: [string, 'Kategorie']
+				title: [string, 'Nadpis']
+		filesByCategory:
+			class: Grapesc\GrapeFluid\FileManagementModule\Control\FilesByCategory\FilesByCategoryControlFactory
+			desc: 'Slouží pro výpis souborů dle kategorie/kategorií'
+			params:
+				categoryIds: [string, 'Id kategorií oddělnéné čárkami']
+				title: [string, 'Nadpis']
+
+	translator:
+		locales:
+			- %moduleDir%/FileManagementModule/config/Locale/cs.neon
+
+assets:
+	fileUpload:
+		limit:
+			- ':Admin:FileManagement:categoryFiles*'
+		css:
+			- '%moduleDir%/FileManagementModule/assets/uploader.css'
+		js:
+			- '%vendorDir%/enyo/dropzone/dist/min/dropzone.min.js'
+
+services:
+	- Grapesc\GrapeFluid\FileManagementModule\Model\CategoryModel
+	- Grapesc\GrapeFluid\FileManagementModule\Model\FileModel
+	- Grapesc\GrapeFluid\FileManagementModule\FileRepository(%module.fileManagement.directory%, %module.fileManagement.categoryIdPrefix%)
+	- Grapesc\GrapeFluid\FileManagementModule\FileLoader
+	- Grapesc\GrapeFluid\FileManagementModule\FileUploader
+
+extenders:
+	filemanager:
+		- Grapesc\GrapeFluid\FileManagementModule\Extenders\DbFiles
