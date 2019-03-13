@@ -7,7 +7,7 @@ use Grapesc\GrapeFluid\FileManagementModule\Model\CategoryModel;
 use Grapesc\GrapeFluid\FluidFormControl\FluidForm;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\DateTime;
+use Nette\Utils\DateTime;
 use Nette\Security\User;
 
 

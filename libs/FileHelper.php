@@ -29,6 +29,7 @@ class FileHelper
 	{
 		$val  = trim($size);
 		$last = strtolower($val[strlen($val)-1]);
+		$val  = (int)$val;
 		switch($last) {
 			case 'g':
 				$val *= 1024;
