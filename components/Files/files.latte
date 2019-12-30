@@ -15,7 +15,7 @@
                     <td>{$file->getName()}</td>
                     <td>{$file->getSize() ? ($file->getSize()|bytes) : '---'}</td>
                     <td>
-                        <a class="btn btn-success btn-sm tw-ajax" href="{plink :FileManegement:FileManagement:download, $hash}" data-ajax="on"><i class="zdmi zdmi-download" title="{_'fileManagement.download'}"></i></a>
+                        <a class="btn btn-success btn-sm tw-ajax" href="{plink :FileManegement:FileManagement:download, $hash}" data-ajax="on"><i class="zmdi zmdi-download" title="{_'fileManagement.download'}"></i></a>
                     </td>
                 </tr>
             {/foreach}
