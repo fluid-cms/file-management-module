@@ -1,0 +1,5 @@
+twigrid.pagination.previous: 'Predchádzajúca'
+twigrid.pagination.next: 'Ďalšie'
+fileManagement.fileName: 'Názov Súboru'
+fileManagement.fileSize: 'Velkost'
+fileManagement.download: 'Stiahnut'
