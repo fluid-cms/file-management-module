@@ -1,2 +1,5 @@
 twigrid.pagination.previous: 'Předchozí'
 twigrid.pagination.next: 'Další'
+fileManagement.fileName: 'Název Souboru'
+fileManagement.fileSize: 'Velikost'
+fileManagement.download: 'Stáhnout'

@@ -4,9 +4,9 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Název Souboru</th>
-                <th>Velikost</th>
-                <th>Stáhnout</th>
+                <th>{_}fileManagement.fileName{/_}</th>
+                <th>{_}fileManagement.fileSize{/_}</th>
+                <th>{_}fileManagement.download{/_}</th>
             </tr>
             </thead>
             <tbody>
@@ -15,7 +15,7 @@
                     <td>{$file->getName()}</td>
                     <td>{$file->getSize() ? ($file->getSize()|bytes) : '---'}</td>
                     <td>
-                        <a class="btn btn-success btn-sm tw-ajax" href="{plink :FileManegement:FileManagement:download, $hash}" data-ajax="on"><i class="zmdi zmdi-download" title="Stáhnout"></i></a>
+                        <a class="btn btn-success btn-sm tw-ajax" href="{plink :FileManegement:FileManagement:download, $hash}" data-ajax="on"><i class="fa fa-download" title="{_'fileManagement.download'}"></i></a>
                     </td>
                 </tr>
             {/foreach}
