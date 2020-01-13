@@ -139,13 +139,17 @@ class FileLoader
 	 */
 	private function getFiles(&$files, &$storage, $foundedFiles, $extender, $userId)
 	{
-		foreach ($foundedFiles as $file) {
-			$md5         = md5(get_class($extender) . serialize($file) . $userId);
-			$files[$md5] = $file;
-			if (!array_key_exists(get_class($extender), $storage)) {
-				$storage[get_class($extender)] = [];
+		if ($foundedFiles) {
+			foreach ($foundedFiles as $file) {
+				$md5         = md5(get_class($extender) . serialize($file) . $userId);
+				$files[$md5] = $file;
+				if (!array_key_exists(get_class($extender), $storage)) {
+					$storage[get_class($extender)] = [];
+				}
+				$storage[get_class($extender)][$md5] = $file->getIdentificator();
 			}
-			$storage[get_class($extender)][$md5] = $file->getIdentificator();
+		} else {
+			$storage[get_class($extender)] = [];
 		}
 	}
 
@@ -157,7 +161,9 @@ class FileLoader
 	{
 		$sessionSection = $this->session->getSection('FileManagement');
 		if (isset($sessionSection->fileLoader) && is_array($sessionSection->fileLoader)) {
-			$sessionSection->fileLoader = array_merge_recursive($sessionSection->fileLoader, $storage);
+			foreach ($storage AS $extenderClass => $files) {
+				$sessionSection->fileLoader[$extenderClass] = array_merge(isset($sessionSection->fileLoader[$extenderClass]) ? $sessionSection->fileLoader[$extenderClass] : [], $files);
+			}
 		} else {
 			$sessionSection->fileLoader = $storage;
 		}
