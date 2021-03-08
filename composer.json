@@ -14,7 +14,7 @@
   "require": {
     "php": ">= 5.6",
     "fluid-cms/admin-module": "@dev",
-    "enyo/dropzone": "^4.3"
+    "enyo/dropzone": "^5.7"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"
