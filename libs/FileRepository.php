@@ -25,7 +25,7 @@ class FileRepository
 	private $categoryModel;
 
 
-	public function __construct($directoryPath, $categoryIdPrefix = "category-", FileModel $fileModel, CategoryModel $categoryModel)
+	public function __construct($directoryPath, $categoryIdPrefix = "category-", FileModel $fileModel = null, CategoryModel $categoryModel = null)
 	{
 		if (!file_exists($directoryPath)) {
 			throw new \InvalidArgumentException("Directory path $directoryPath for files isn't accessible");
