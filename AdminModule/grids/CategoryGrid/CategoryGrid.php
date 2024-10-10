@@ -17,7 +17,7 @@ class CategoryGrid extends FluidGrid
 	public $fileRepository;
 
 
-	protected function build()
+	protected function build(): void
 	{
 		$this->setItemsPerPage(15);
 		$this->skipColumns(["created_on", "created_by_id"]);

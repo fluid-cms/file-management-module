@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tbody>
-            {foreach $files AS $hash => $file}
+            {foreach $files as $hash => $file}
                 <tr>
                     <td>{$file->getName()}</td>
                     <td>{$file->getSize() ? ($file->getSize()|bytes) : '---'}</td>
