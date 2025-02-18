@@ -4,13 +4,13 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>{_}fileManagement.fileName{/_}</th>
-                <th>{_}fileManagement.fileSize{/_}</th>
-                <th>{_}fileManagement.download{/_}</th>
+                <th>{translate}fileManagement.fileName{/translate}</th>
+                <th>{translate}fileManagement.fileSize{/translate}</th>
+                <th>{translate}fileManagement.download{/translate}</th>
             </tr>
             </thead>
             <tbody>
-            {foreach $files AS $hash => $file}
+            {foreach $files as $hash => $file}
                 <tr>
                     <td>{$file->getName()}</td>
                     <td>{$file->getSize() ? ($file->getSize()|bytes) : '---'}</td>
