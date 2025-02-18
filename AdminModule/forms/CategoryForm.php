@@ -65,7 +65,7 @@ class CategoryForm extends FluidForm
 			$values['created_by_id'] = $this->user->getId();
 			$values['created_on']    = new DateTime();
 
-			$createdId = $this->model->insert($this->model->clearingValues($values));
+			$createdId = $this->model->insert($this->model->clearingValues($values))->id;
 			$presenter->flashMessage("Categorie vytvořena", "success");
 			$presenter->redirect("categoryFiles", $createdId);
 		}

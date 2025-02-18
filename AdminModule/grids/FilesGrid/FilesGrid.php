@@ -18,7 +18,7 @@ class FilesGrid extends FluidGrid
 	public $fileRepository;
 
 
-	protected function build()
+	protected function build(): void
 	{
 		$this->setItemsPerPage(15);
 		$this->skipColumns(["id", "filename", "filepath", "filemanagement_category_id"]);
