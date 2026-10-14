@@ -19,13 +19,17 @@ class File
 	/** @var int */
 	private $size;
 
+	/** @var array additional data provided by the extender (e.g. tags, created date), available in templates */
+	private $metadata = [];
 
-	public function __construct($identificator, $name, $size = null, $type = null)
+
+	public function __construct($identificator, $name, $size = null, $type = null, array $metadata = [])
 	{
 		$this->setIdentificator($identificator);
 		$this->setName($name);
 		$this->setSize($size);
 		$this->setType($type);
+		$this->setMetadata($metadata);
 	}
 
 
@@ -98,6 +102,35 @@ class File
 	public function setSize($size)
 	{
 		$this->size = $size;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getMetadata()
+	{
+		return $this->metadata;
+	}
+
+
+	/**
+	 * @param array $metadata
+	 */
+	public function setMetadata(array $metadata)
+	{
+		$this->metadata = $metadata;
+	}
+
+
+	/**
+	 * @param string $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function getMeta($key, $default = null)
+	{
+		return array_key_exists($key, $this->metadata) ? $this->metadata[$key] : $default;
 	}
 
 }
